@@ -14,7 +14,7 @@
             display: flex;
             flex-direction: column;
             border: 1px solid black;
-            width: 200px;
+            width: 600px;
         }
 
         div.ia21-player video{
@@ -60,33 +60,9 @@
         }
     </style>
 </head>
-<body>
-    
     <div class="ia21-player">
         <video>
-            <source src="https://www.w3schools.com/tags/movie.mp4" type="video/mp4">
-            <source src="https://www.w3schools.com/tags/movie.ogg" type="video/ogg">
-        </video>
-        <div class="controllers">
-            <button class="play-pause" data-deleteme="▶️">
-                ▶️
-            </button>
-            <div class="dragbar timeline">
-                <div class="draggable"></div>
-            </div>
-            <div class="timer">
-                00:00
-            </div>
-            </div class="dragbar volume">
-                <div class="draggable"></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="ia21-player">
-        <video>
-            <source src="https://www.w3schools.com/tags/movie.mp4" type="video/mp4">
-            <source src="https://www.w3schools.com/tags/movie.ogg" type="video/ogg">
+            <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
         </video>
         <div class="controllers">
             <button class="play-pause" data-deleteme="⏸">
@@ -98,7 +74,7 @@
             <div class="timer">
                 00:00
             </div>
-            </div class="dragbar volume">
+            <div class="dragbar volume">
                 <div class="draggable"></div>
             </div>
         </div>
@@ -112,10 +88,18 @@
             const video = container.querySelector("video")
             const timeline = container.querySelector(".dragbar.timeline")
             const timelineDrag = timeline.querySelector(".draggable")
+            const timer = container.querySelector(".timer")
             playPause.addEventListener("click", () => video.play())
+
+            video.currentTime = 59
+
             video.addEventListener("timeupdate", () =>{
                 const percent = video.currentTime / video.duration * 100
-                timelineDrag.style.setProperty("--percent", `$(percent)%`)
+                timelineDrag.style.setProperty("--percent", `${percent}%`)
+                let m = Math.floor(video.currentTime / 60)
+                let h = m / 60
+                let s = Math.floor(video.currentTime)
+                timer.innerText = `${h}:${m % 60}:${s % 60}`
             })
         })
     </script>
