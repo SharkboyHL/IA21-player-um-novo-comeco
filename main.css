@@ -20,7 +20,7 @@ div.ia21-player{
     display: flex;
     flex-direction: column;
     border: 1px solid black;
-    width: 600px;
+    width: 800px;
 }
 
 div.ia21-player video{
