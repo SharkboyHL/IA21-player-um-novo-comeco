@@ -1,12 +1,18 @@
 const containers = document.querySelectorAll("div.ia21-player")
 
-containers.forEach(container => {
+containers.forEach(async container => {
     const playPause = container.querySelector("button.play-pause")
+    const changeThemeBtn = document.querySelector("#change-theme")
     const video = container.querySelector("video")
     const timeline = container.querySelector(".dragbar.timeline")
     const timelineDrag = timeline.querySelector(".draggable")
     const timer = container.querySelector(".timer")
-    
+    const dragbars = container.querySelectorAll(".dragbar")
+
+    changeThemeBtn.addEventListener("change", function() {
+        document.body.classList.toggle("dark")
+    })
+
     playPause.addEventListener("click", () => {
         if (video.paused) {
             video.play()
@@ -16,40 +22,71 @@ containers.forEach(container => {
         video.pause()
         playPause.innerText = playPause.dataset.playIcon
     })
-    
+
     video.addEventListener("timeupdate", () => {
+
         const percent = video.currentTime / video.duration * 100
+        const s = Math.floor(video.currentTime)
+        const m = Math.floor(s / 60)
+        const h = Math.floor(m / 60)
+        const sh = `${h % 60}`.padStart(2, "0")
+        const sm = `${m % 60}`.padStart(2, "0")
+        const ss = `${s % 60}`.padStart(2, "0")
+
         timelineDrag.style.setProperty("--percent", `${percent}%`)
-        let m = Math.floor(video.currentTime / 60)
-        let h = m / 60
-        let s = Math.floor(video.currentTime)
-        timer.innerText = `${m % 60}:${s % 60}`
+        timer.innerText = `${sh}:${sm}:${ss}`
+
     })
-        
-        const dragbars = container.querySelectorAll(".dragbar")
-        
-        dragbars.forEach(dragbar => {
-            const dragabble = dragbar.querySelector(".draggable")
-            
-            if (dragbar.classList.contains("volume")) {
-                dragabble.style.setProperty("--percent", `100%`)
+
+    dragbars.forEach(dragbar => {
+        const dragabble = dragbar.querySelector(".draggable")
+
+        if (dragbar.classList.contains("volume")) {
+            dragabble.style.setProperty("--percent", `100%`)
+        }
+
+        dragbar.addEventListener("mousedown", ev => {
+            dragbar.classList.add("dragging")
+        })
+
+        dragbar.addEventListener("mouseup", ev => {
+            dragbar.classList.remove("dragging")
+        })
+
+        dragbar.addEventListener("mouseout", ev => {
+            dragbar.classList.remove ("dragging")
+        })
+
+        dragbar.addEventListener("mousemove", ev => {
+            if (ev.target != dragbar || !dragbar.classList.contains("dragging"))
+                return
+
+            const width = Math.floor(dragbar.getBoundingClientRect().width)
+            const index = (ev.offsetX / width)
+            const percent = index * 100
+
+            dragabble.style.setProperty("--percent", `${percent}%`)
+        })
+
+        dragbar.addEventListener("mouseup", ev => {
+            if (ev.target != dragbar)
+                return
+
+            const width = Math.floor(dragbar.getBoundingClientRect().width)
+            const index = (ev.offsetX / width)
+            const percent = index * 100
+
+            dragabble.style.setProperty("--percent", `${percent}%`)
+
+            if (dragbar.classList.contains("timeline")) {
+                video.currentTime = video.duration * index
+                return
             }
 
-            dragbar.addEventListener("click", ev => {
-                const width = Math.floor(dragbar.getBoundingClientRect().width)
-                const index = (ev.offsetX / width)
-                const percent = index * 100
-                dragabble.style.setProperty("--percent", `${percent}%`)
-
-                if (dragbar.classList.contains("timeline")) {
-                    video.currentTime = video.duration * index
-                    return
-                }
-                
-                if (dragbar.classList.contains("volume")) {
-                    video.volume = index
-                    return
-                }
-            })
+            if (dragbar.classList.contains("volume")) {
+                video.volume = index
+                return
+            }
         })
+    })
 })

@@ -4,27 +4,50 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Player</title>
+    <title>SharkTube</title>
     <link rel="stylesheet" type="text/css" href="main.css">
     <script defer async src="main.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css"/>
 </head>
-<body>
-    <div class="ia21-player">
-        <video>
-            <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-        </video>
-        <div class="controllers">
-            <button class="play-pause" data-pause-icon="❚❚" data-play-icon="▶️">
-                ▶️
-            </button>
-            <div class="dragbar timeline">
-                <div class="draggable"></div>
-            </div>
-            <div class="timer">
-                00:00
-            </div>
-            <div class="dragbar volume">
-                <div class="draggable"></div>
+
+<header>
+    <div class="logo">
+        <img src="/src/shark.png" alt="SharkTube logo" width="100px" height="100px">
+        <h1>SharkTube</h1>
+    </div>
+
+   <div>
+       <input type="checkbox" name="change-theme" id="change-theme">
+       <label for="change-theme">
+           <i class="bi bi-sun"></i>
+           <i class="bi bi-moon"></i>
+       </label>
+   </div>
+</header>
+
+<body class="dark">
+    <div class="center">
+        <div class="ia21-player">
+            <video>
+                <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+                    type="video/mp4">
+            </video>
+            <div class="controllers">
+                <button class="play-pause" data-pause-icon="❚❚" data-play-icon="▶">
+                    ▶
+                </button>
+                <div class="dragbar timeline">
+                    <div class="draggable"></div>
+                </div>
+                <div class="timer">
+                    00:00:00
+                </div>
+                <div class="auto-falante">
+                    <img src="/src/alto-falante.png" alt="Auto falante Icon">
+                </div>
+                <div class="dragbar volume">
+                    <div class="draggable"></div>
+                </div>
             </div>
         </div>
     </div>
