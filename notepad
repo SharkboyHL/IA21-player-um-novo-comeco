@@ -26,12 +26,8 @@ header {
 }
 
 .logo .title{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
   font-family: 'Kanit', sans-serif;
-  color: #0096d0;
+  
 } 
 
 div.center {
@@ -47,7 +43,6 @@ div.ia21-player {
   flex-direction: column;
   border: 5px solid #a5b1c2;
   border-radius: 5px;
-  border-image: linear-gradient(to right, rgb(20, 71, 106), rgb(102, 188, 245)) 1;;
   width: 50rem;
   font-size: 1.8rem;
   font-family: 'Kanit', sans-serif;
@@ -73,7 +68,6 @@ div.ia21-player div.controllers button.play-pause {
   padding: .1em;
   line-height: 2em;
   width: 2em;
-  color: rgb(20, 71, 106);
 }
 
 div.ia21-player div.controllers div.dragbar {
